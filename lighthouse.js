@@ -34,4 +34,8 @@ function isRock(cell) {
   return lightCell(cell) === "^";
 }
 
-console.log(isRock('B4'));
+function isCurrent(cell) {
+  return lightCell(cell) === "~";
+}
+
+console.log(isCurrent('B4'));
