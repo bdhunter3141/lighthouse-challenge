@@ -38,4 +38,13 @@ function isCurrent(cell) {
   return lightCell(cell) === "~";
 }
 
-console.log(isCurrent('B4'));
+function lightRow(row) {
+	const rowToLight = GRID[row];
+	let litRow = [];
+	for (cell of rowToLight) {
+		litRow.push(cell);
+	}
+	return litRow;
+}
+
+console.log(lightRow(1));
