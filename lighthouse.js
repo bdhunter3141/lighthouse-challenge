@@ -47,4 +47,14 @@ function lightRow(row) {
 	return litRow;
 }
 
-console.log(lightRow(1));
+function lightColumn(column) {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const columnToLight = alphabet.indexOf(column);
+  let litColumn = [];
+  for (row of GRID) {
+    litColumn.push(row[columnToLight]);
+  }
+  return litColumn;
+}
+
+console.log(lightColumn('C'));
