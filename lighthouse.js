@@ -26,8 +26,12 @@ function totalCells() {
 function lightCell(cell) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const posX = alphabet.indexOf(cell[0]);
-  const posY = cell[1] - 1;
-  return GRID[posY][posX]
+  const posY = parseInt(cell.substring(1)) - 1;
+  let cellExist = false;
+  if (posX < (GRID[0].length - 1) && posY < (GRID.length - 1)) {
+    cellExist = true;
+  }
+  return (cellExist ? GRID[posY][posX] : cellExist);
 }
 
 function isRock(cell) {
@@ -57,4 +61,4 @@ function lightColumn(column) {
   return litColumn;
 }
 
-console.log(lightColumn('C'));
+console.log(lightCell('D21'));
