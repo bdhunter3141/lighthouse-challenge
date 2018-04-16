@@ -61,4 +61,12 @@ function lightColumn(column) {
   return litColumn;
 }
 
-console.log(lightCell('D21'));
+function isSafe(cell) {
+  if (isRock(cell) || isCurrent(cell)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+console.log(isSafe('D7'));
