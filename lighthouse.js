@@ -69,4 +69,17 @@ function isSafe(cell) {
   }
 }
 
-console.log(isSafe('D7'));
+function allRocks() {
+  let rocks = [];
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (row in GRID) {
+    for (let i = 0; i < GRID[row].length; i++) {
+      if (GRID[row][i] === "^") {
+        rocks.push(`${alphabet[i]}${parseInt(row) + 1}`)
+      }
+    }
+  }
+  return rocks;
+}
+
+console.log(allRocks());
