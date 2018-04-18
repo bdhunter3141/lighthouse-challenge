@@ -69,17 +69,25 @@ function isSafe(cell) {
   }
 }
 
-function allRocks() {
-  let rocks = [];
+function findCell(type) {
+  let cellArray = [];
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   for (row in GRID) {
     for (let i = 0; i < GRID[row].length; i++) {
-      if (GRID[row][i] === "^") {
-        rocks.push(`${alphabet[i]}${parseInt(row) + 1}`)
+      if (GRID[row][i] === type) {
+        cellArray.push(`${alphabet[i]}${parseInt(row) + 1}`)
       }
     }
   }
-  return rocks;
+  return cellArray;
+}
+
+function allRocks() {
+  return findCell("^");
+}
+
+function allCurrents() {
+  return findCell("~");
 }
 
 console.log(allRocks());
