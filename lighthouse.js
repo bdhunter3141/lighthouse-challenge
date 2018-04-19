@@ -90,4 +90,9 @@ function allCurrents() {
   return findCell("~");
 }
 
-console.log(allRocks());
+function firstRock() {
+  const rockArray = allRocks();
+  return rockArray[0];
+}
+
+console.log(firstRock());
