@@ -95,4 +95,9 @@ function firstRock() {
   return rockArray[0];
 }
 
-console.log(firstRock());
+function firstCurrent() {
+  const currentArray = allCurrents();
+  return currentArray[0];
+}
+
+console.log(firstCurrent());
