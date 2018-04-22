@@ -11,6 +11,8 @@ const GRID = [
   ["", "^", "", "", "~", "~", "", "", "", ""]
 ];
 
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 function gridSize() {
   const y = GRID.length;
   const x = GRID[0].length;
@@ -24,7 +26,6 @@ function totalCells() {
 }
 
 function lightCell(cell) {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const posX = alphabet.indexOf(cell[0]);
   const posY = parseInt(cell.substring(1)) - 1;
   let cellExist = false;
@@ -43,7 +44,7 @@ function containsRocks(cellArray) {
   for (cell of cellArray) {
     if (cell === "^") {
       rock = true;
-      break
+      break;
     }
   }
   return rock;
@@ -74,7 +75,6 @@ function lightRow(row) {
 }
 
 function lightColumn(column) {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const columnToLight = alphabet.indexOf(column);
   let litColumn = [];
   for (row of GRID) {
@@ -93,7 +93,6 @@ function isSafe(cell) {
 
 function findCell(type) {
   let cellArray = [];
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   for (row in GRID) {
     for (let i = 0; i < GRID[row].length; i++) {
       if (GRID[row][i] === type) {
@@ -122,22 +121,78 @@ function firstCurrent() {
   return currentArray[0];
 }
 
-function isDangerous(cell) {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function cellsAround(cell) {
   const posX = alphabet.indexOf(cell[0]);
   const posY = parseInt(cell.substring(1)) - 1;
-  const allCells = { 
-    originalCell: lightCell(cell), 
-    cellAbove: GRID[posY - 1][posX],
-    cellBelow: GRID[posY + 1][posX],
-    cellBefore: GRID[posY][posX - 1],
-    cellAfter: GRID[posY][posX + 1]
-   }
-   if (containsRocks([allCells.originalCell, allCells.cellAbove, allCells.cellBelow, allCells.cellBefore, allCells.cellAfter]) || containsCurrents([allCells.originalCell, allCells.cellAbove, allCells.cellBelow, allCells.cellBefore, allCells.cellAfter])) {
-     return true;
-   } else {
-     return false;
-   }
+  const allCells = [
+    { type: "original", name: cell, contents: lightCell(cell) },
+    {
+      type: "above",
+      name: `${alphabet[posX]}${parseInt(posY)}`,
+      contents: GRID[posY - 1][posX]
+    },
+    {
+      type: "below",
+      name: `${alphabet[posX]}${parseInt(posY) + 2}`,
+      contents: GRID[posY + 1][posX]
+    },
+    {
+      type: "before",
+      name: `${alphabet[posX - 1]}${parseInt(posY) + 1}`,
+      contents: GRID[posY][posX - 1]
+    },
+    {
+      type: "after",
+      name: `${alphabet[posX + 1]}${parseInt(posY) + 1}`,
+      contents: GRID[posY][posX + 1]
+    },
+    {
+      type: "top left",
+      name: `${alphabet[posX - 1]}${parseInt(posY)}`,
+      contents: GRID[posY - 1][posX - 1]
+    },
+    {
+      type: "top right",
+      name: `${alphabet[posX + 1]}${parseInt(posY)}`,
+      contents: GRID[posY - 1][posX + 1]
+    },
+    {
+      type: "bottom left",
+      name: `${alphabet[posX - 1]}${parseInt(posY) + 2}`,
+      contents: GRID[posY + 1][posX - 1]
+    },
+    {
+      type: "bottom right",
+      name: `${alphabet[posX + 1]}${parseInt(posY) + 2}`,
+      contents: GRID[posY + 1][posX + 1]
+    }
+  ];
+  return allCells;
 }
 
-console.log(isDangerous("B9"), isDangerous("I6"), isDangerous("E4"));
+function isDangerous(cell) {
+  let allCells = cellsAround(cell);
+  let dangerous = false;
+  for (cell of allCells) {
+    if (containsRocks(cell.contents) || containsCurrents(cell.contents)) {
+      dangerous = true;
+      break;
+    }
+  }
+  return dangerous;
+}
+
+function distressBeacon(cell) {
+  const surroundingCells = cellsAround(cell);
+  let safeCell = "No safe passage.";
+  for (cell of surroundingCells) {
+    if (!isDangerous(cell.name)) {
+      safeCell = cell.name;
+      break;
+    }
+  }
+  return safeCell;
+}
+
+console.log(distressBeacon("E8"));
+// should return 'F7'.
