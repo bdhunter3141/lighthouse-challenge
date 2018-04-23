@@ -194,5 +194,7 @@ function distressBeacon(cell) {
   return safeCell;
 }
 
-console.log(distressBeacon("E8"));
-// should return 'F7'.
+GRID[8][9] = "^";
+
+console.log(GRID);
+
