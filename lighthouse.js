@@ -196,5 +196,16 @@ function distressBeacon(cell) {
 
 GRID[8][9] = "^";
 
-console.log(GRID);
+function percentageReport() {
+  const y = GRID.length;
+  const x = GRID[0].length;
+  const totalArea = x * y;
+  const currentNumber = allCurrents().length;
+  const rockNumber = allRocks().length;
+  const rockPercentage = parseFloat((rockNumber / totalArea * 100).toFixed(2));
+  const currentPercentage = parseFloat((currentNumber / totalArea * 100).toFixed(2));
+  return [rockPercentage, currentPercentage];
+}
+
+console.log(percentageReport());
 
