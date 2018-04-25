@@ -196,16 +196,28 @@ function distressBeacon(cell) {
 
 GRID[8][9] = "^";
 
-function percentageReport() {
+function getTotalArea() {
   const y = GRID.length;
   const x = GRID[0].length;
-  const totalArea = x * y;
+  return x * y;
+} 
+
+function getReportNumbers() {
+  const totalArea = getTotalArea();
   const currentNumber = allCurrents().length;
   const rockNumber = allRocks().length;
-  const rockPercentage = parseFloat((rockNumber / totalArea * 100).toFixed(2));
-  const currentPercentage = parseFloat((currentNumber / totalArea * 100).toFixed(2));
-  return [rockPercentage, currentPercentage];
+  const waterNumber = totalArea - (currentNumber + rockNumber);
+  return [waterNumber, rockNumber, currentNumber];
 }
 
-console.log(percentageReport());
+function percentageReport() {
+  return getReportNumbers();
+  // const numberArray = getReportNumbers();
+  // const totalArea = getTotalArea();
+  // const rockPercentage = parseFloat((numberArray[1] / totalArea * 100).toFixed(2));
+  // const currentPercentage = parseFloat((numberArray[2] / totalArea * 100).toFixed(2));
+  // return [rockPercentage, currentPercentage];
+}
+
+console.log(getReportNumbers());
 
