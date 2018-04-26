@@ -219,5 +219,13 @@ function percentageReport() {
   // return [rockPercentage, currentPercentage];
 }
 
-console.log(getReportNumbers());
+function safetyReport() {
+  const reportNumbers = getReportNumbers();
+  const totalCells = reportNumbers.reduce((total, number) => {
+    return total + number;
+  })
+  return `${((reportNumbers[0] / totalCells) * 100).toFixed(1)}%`;
+}
+
+console.log(safetyReport());
 
