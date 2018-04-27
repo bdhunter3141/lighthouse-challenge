@@ -227,5 +227,17 @@ function safetyReport() {
   return `${((reportNumbers[0] / totalCells) * 100).toFixed(1)}%`;
 }
 
-console.log(safetyReport());
+function calcDistance(cell1, cell2) {
+  const firstCell = {
+    posX: alphabet.indexOf(cell1[0]),
+    posY: (parseInt(cell1.substring(1)) - 1)
+  }
+  const secondCell = {
+    posX: alphabet.indexOf(cell2[0]),
+    posY: (parseInt(cell2.substring(1)) - 1)
+  }
+  return (Math.sqrt(Math.pow((firstCell.posX - secondCell.posX), 2) + Math.pow((firstCell.posY - secondCell.posY), 2))).toFixed(2);
+}
 
+console.log(calcDistance('A1', 'C3'));
+// should return 2.83
