@@ -239,5 +239,26 @@ function calcDistance(cell1, cell2) {
   return (Math.sqrt(Math.pow((firstCell.posX - secondCell.posX), 2) + Math.pow((firstCell.posY - secondCell.posY), 2))).toFixed(2);
 }
 
-console.log(calcDistance('A1', 'C3'));
-// should return 2.83
+function evaluateRoute(array) {
+  let currentCells = [];
+  for (cell of array) {
+    if (lightCell(cell) === "^") {
+      return false;
+    } else if (lightCell(cell) === "~") {
+      currentCells.push(cell);
+    }
+  }
+  if (currentCells.length >= 2) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+console.log(evaluateRoute(["A1", "B2", "C3", "D4"]));
+console.log(evaluateRoute(["C2", "D2", "E2", "F2"]));
+console.log(evaluateRoute(["D7", "D8", "D9", "D10"]));
+console.log(evaluateRoute(["G7", "H8", "I9", "J10"]));
+    // If any cells have rocks, it should return false.
+    // If more than two cells have strong currents, it should return false.
+    // Otherwise, it should return true.
